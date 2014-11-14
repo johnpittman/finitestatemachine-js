@@ -1,0 +1,37 @@
+{
+  "name": "finitestatemachine",
+  "version": "0.0.1",
+  "description": "Lightweight universal module defined finite state machine.",
+  "homepage": "https://github.com/JohnPittman/finitestatemachine-js",
+  "authors": [
+    "John Pittman <johnrichadrpittman@gmail.com>"
+  ],
+  "main": "src/finitestatemachine.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "johnpittman",
+    "fast",
+    "optimized",
+    "umd",
+    "universal",
+    "finitestatemachine",
+    "fsm"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "gulpfile.js",
+    ".gitignore",
+    "package.json",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "eventhandler": "*"
+  }
+}
