@@ -1,7 +1,7 @@
 finitestatemachine-js
 =====================
 
-A simple finite state machine build to use as a mechanism to feed other/larger components.
+A simple finite state machine built to use as a mechanism to feed other/larger components.
 
 <h1>Notes</h1>
 
