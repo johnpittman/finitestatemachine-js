@@ -6,7 +6,7 @@
   "authors": [
     "John Pittman <johnrichadrpittman@gmail.com>"
   ],
-  "main": "src/finitestatemachine.js",
+  "main": "dist/finitestatemachine.min.js",
   "moduleType": [
     "amd",
     "globals",

@@ -2,7 +2,7 @@
   "name": "finitestatemachine",
   "version": "0.0.1",
   "description": "Lightweight universal module defined finite state machine.",
-  "main": "src/finitestatemachine.js",
+  "main": "dist/finitestatemachine.min.js",
   "files": [
     "src/",
     "dist/",

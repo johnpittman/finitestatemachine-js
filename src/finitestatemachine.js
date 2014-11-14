@@ -1,7 +1,7 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD
-        define(['./../../eventhandler/dist/eventhandler.js'], factory);
+        define(['./../../eventhandler/dist/eventhandler.min.js'], factory);
     } else if (typeof exports === 'object') {
         // Node, CommonJS-like
         module.exports = factory(require('eventhandler'));
