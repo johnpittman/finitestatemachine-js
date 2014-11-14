@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var jasmine = require('gulp-jasmine');
+var sourcemaps = require('gulp-sourcemaps');
 
 /**
  * Setup
@@ -31,7 +32,9 @@ gulp.task('default', ['test', 'build']);
 // Minify JS
 gulp.task('compress', function() {
     return gulp.src(JS_SRC)
+        .pipe(sourcemaps.init())
         .pipe(uglify())
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(DIST));
 });
 
