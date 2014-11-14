@@ -1,6 +1,6 @@
 {
   "name": "finitestatemachine",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "Lightweight universal module defined finite state machine.",
   "homepage": "https://github.com/JohnPittman/finitestatemachine-js",
   "authors": [
