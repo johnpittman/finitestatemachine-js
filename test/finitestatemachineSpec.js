@@ -41,6 +41,10 @@ describe("Finite State Machine", function() {
             fsm.addStates(movementStates, 'Still');
             expect(fsm.getCurrentState()).toBe('Still');
         });
+        it("Accepts null for states parameter.", function() {
+            fsm.addStates(null, 'Still');
+            expect(fsm.getCurrentState()).toBe('Still');
+        });
     });
 
     describe("#handleStateEvent", function() {

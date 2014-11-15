@@ -30,7 +30,7 @@
     /**
      * Initializes the states collection with more states.
      * Every state already has a 'Default' event
-     * @param {object} states - {
+     * @param {object} [states] - {
      *                              StateOne: {
      *                                          'EventOne' : 'StateTwo'
      *                                        },
@@ -41,9 +41,10 @@
      * @param {string} [initialState]
      */
     FSM.prototype.addStates = function(states, initialState) {
-        for (var state in states) {
-            this._states[state] = states[state];
-        }
+        if (typeof states === 'object')
+            for (var state in states) {
+                this._states[state] = states[state];
+            }
 
         if (initialState !== undefined)
             this.setCurrentState(initialState);
