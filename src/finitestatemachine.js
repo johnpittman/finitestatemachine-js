@@ -7,7 +7,7 @@
         module.exports = factory(require('eventhandler'));
     } else {
         // Browser globals (root is window)
-        root.FSM = factory(root.EventHandler);
+        root.FiniteStateMachine = factory(root.EventHandler);
     }
 }(this, function(EventHandler) {
     'use strict'
