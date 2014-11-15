@@ -71,7 +71,6 @@ gulp test
 
 <h4>Breaking Changes...</h4>
 
-- Changed global variable name to FiniteStateMachine but kept support for global FSM if one doesn't exist to avoid confilcts.
 - setCurrentState no longer tiggers the change events. Use triggerChangeEvents to explicity trigger events for the current state.
 - changeState has been deprecated to handleStateEvent.
 - changeState now takes a state as the parameter, changes the current state, and triggers the change events with the event.event data being undefined.
@@ -80,3 +79,4 @@ gulp test
 <h4>Additional Changes...</h4>
 
 - Added getPreviousState() to fetch the previous state.
+- Changed global variable name to FiniteStateMachine but kept support for global FSM if one doesn't exist to avoid confilcts.
