@@ -18,8 +18,18 @@
     "optimized",
     "umd",
     "universal",
+    "johnpittman",
+    "fast",
+    "optimized",
+    "umd",
+    "universal",
+    "modular",
+    "js",
+    "module",
+    "javascript",
     "finitestatemachine",
-    "fsm"
+    "fsm",
+    "states"
   ],
   "license": "MIT",
   "ignore": [
