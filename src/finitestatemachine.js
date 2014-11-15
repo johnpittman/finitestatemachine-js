@@ -8,7 +8,7 @@
     } else {
         // Browser globals (root is window)        
         root.FiniteStateMachine = factory(root.EventHandler);
-        if(root.FSM === undefined)
+        if (root.FSM === undefined)
             root.FSM = root.FiniteStateMachine;
     }
 }(this, function(EventHandler) {
@@ -43,10 +43,9 @@
      * @param {string} [initialState]
      */
     FSM.prototype.addStates = function(states, initialState) {
-        if (typeof states === 'object')
-            for (var state in states) {
-                this._states[state] = states[state];
-            }
+        for (var state in states) {
+            this._states[state] = states[state];
+        }
 
         if (initialState !== undefined)
             this.setCurrentState(initialState);
