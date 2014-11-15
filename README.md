@@ -13,6 +13,34 @@ Universal module defined to be used with <b>requirejs</b>, <b>node</b>, <b>commo
 
 <h1>Use</h1>
 
+    var TestStates = {
+        StateOne: {
+            'EventOne': 'StateTwo'
+        },
+        StateTwo: {
+            'EventTwo': 'StateOne'
+        }
+    }
+
+    var fsm = new FSM(this);
+
+    fsm.addStates(TestStates, 'StateOne');
+    console.log(fsm.getCurrentState());
+
+    fsm.changeState('EventOne');
+    console.log(fsm.getCurrentState());
+
+    var increaseCountCallback = function(event) {
+        console.log('State changed!');
+        console.log('From:' + event.from);
+        console.log('To:' + event.to);
+    };
+
+    fsm.onChangeStateFromTo('StateTwo', 'StateOne', increaseCountCallback);
+
+    fsm.changeState('EventTwo');
+    console.log(fsm.getCurrentState());
+
 <h1>Development</h1>
 
 <h4>Requirements</h4>
