@@ -32,7 +32,7 @@
     /**
      * Initializes the states collection with more states.
      * Every state already has a 'Default' event
-     * @param {object} [states] - {
+     * @param {object} states - {
      *                              StateOne: {
      *                                          'EventOne' : 'StateTwo'
      *                                        },
