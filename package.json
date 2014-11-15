@@ -1,6 +1,6 @@
 {
   "name": "finitestatemachine",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "description": "Lightweight universal module defined finite state machine.",
   "main": "dist/finitestatemachine.min.js",
   "files": [
@@ -19,8 +19,13 @@
     "optimized",
     "umd",
     "universal",
+    "modular",
+    "js",
+    "module",
+    "javascript",
     "finitestatemachine",
-    "fsm"
+    "fsm",
+    "states"
   ],
   "author": "John Pittman",
   "license": "MIT",

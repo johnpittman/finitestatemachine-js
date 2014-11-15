@@ -62,10 +62,5 @@ gulp.task('cleanDotMinFiles', ['rename'], function() {
 // Run all units tests.
 gulp.task('unitSpecs', function() {
     return gulp.src(SPECS)
-        .pipe(jasmine())
-        .on('close', function(code, signal) {
-            if (code)
-                exitCode = code;
-            done();
-        });
+        .pipe(jasmine());
 });
