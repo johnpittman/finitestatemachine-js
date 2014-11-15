@@ -29,24 +29,32 @@ bower: bower install finitestatemachine
         }
     }
 
-    var fsm = new FSM(this);
-
-    fsm.addStates(TestStates, 'StateOne');
-    console.log(fsm.getCurrentState());
-
-    fsm.changeState('EventOne');
-    console.log(fsm.getCurrentState());
-
     var increaseCountCallback = function(event) {
-        console.log('State changed!');
+        console.log('State change listener!');
+        console.log('Event:' + event.event);
         console.log('From:' + event.from);
         console.log('To:' + event.to);
     };
 
+    var fsm = new FSM(this);
+
+    fsm.onChangeState(increaseCountCallback);
     fsm.onChangeStateFromTo('StateTwo', 'StateOne', increaseCountCallback);
 
-    fsm.changeState('EventTwo');
-    console.log(fsm.getCurrentState());
+    console.log('fsm.addStates(TestStates, "StateOne");');
+    fsm.addStates(TestStates, 'StateOne');
+    console.log('Previous state:' + fsm.getPreviousState());
+    console.log('Initial state:' + fsm.getCurrentState());
+
+    console.log('fsm.handleStateEvent("EventOne");');
+    fsm.handleStateEvent('EventOne');
+    console.log('Previous state:' + fsm.getPreviousState());
+    console.log('Current state:' + fsm.getCurrentState());
+
+    console.log('fsm.changeState("StateOne");');
+    fsm.changeState('StateOne');
+    console.log('Previous state:' + fsm.getPreviousState());
+    console.log('Current state:' + fsm.getCurrentState());
 
 <h1>Development</h1>
 
