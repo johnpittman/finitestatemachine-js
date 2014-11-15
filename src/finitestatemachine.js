@@ -102,7 +102,8 @@
      * @param {string} state
      */
     FSM.prototype.setCurrentState = function(state) {
-        this._prevState = (this._currentState === undefined) ? state : this._currentState.toString();
+        if (this._currentState !== undefined)
+            this._prevState = this._currentState.toString();
         this._currentState = state;
     };
 

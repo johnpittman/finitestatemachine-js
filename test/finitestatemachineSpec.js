@@ -83,4 +83,15 @@ describe("Finite State Machine", function() {
             expect(count).toBe(1);
         });
     });
+
+    describe("#setCurrentState", function() {
+        it("Updates the previous state.", function() {
+            fsm.setCurrentState('Walking');
+            expect(fsm.getPreviousState()).toBe('Still');
+        });
+        it("Updates the current state.", function() {
+            fsm.setCurrentState('Walking');
+            expect(fsm.getCurrentState()).toBe('Walking');
+        });
+    });
 });
