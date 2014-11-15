@@ -6,8 +6,10 @@
         // Node, CommonJS-like
         module.exports = factory(require('eventhandler'));
     } else {
-        // Browser globals (root is window)
+        // Browser globals (root is window)        
         root.FiniteStateMachine = factory(root.EventHandler);
+        if(root.FSM === undefined)
+            root.FSM = root.FiniteStateMachine;
     }
 }(this, function(EventHandler) {
     'use strict'
