@@ -19,7 +19,7 @@ describe("Finite State Machine", function() {
     };
 
     var count = 0;
-    var inscreaseCount = function() {
+    var inscreaseCount = function(event) {
         ++count;
     }
 
@@ -38,7 +38,7 @@ describe("Finite State Machine", function() {
             expect(fsm._states['Walking']['rest']).toBe('Still');
         });
         it("Sets the current state if initial state is passed in.", function() {
-            fsm.addStates(movementStates);
+            fsm.addStates(movementStates, 'Still');
             expect(fsm.getCurrentState()).toBe('Still');
         });
     });

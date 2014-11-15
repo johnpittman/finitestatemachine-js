@@ -21,6 +21,7 @@
 
         this._states = {};
         this._currentState;
+        this._prevState;
     }
 
     FSM.prototype = Object.create(EventHandler.prototype);
@@ -30,13 +31,13 @@
      * Initializes the states collection with more states.
      * Every state already has a 'Default' event
      * @param {object} states - {
-     *   							StateOne: {
-     *   										'EventOne' : 'StateTwo'
-     *   		  							  },
-     *   							StateTwo: {
-     *   										'EventTwo' : 'StateOne'
-     *   		  							  }
-     * 							}
+     *                              StateOne: {
+     *                                          'EventOne' : 'StateTwo'
+     *                                        },
+     *                              StateTwo: {
+     *                                          'EventTwo' : 'StateOne'
+     *                                        }
+     *                          }
      * @param {string} [initialState]
      */
     FSM.prototype.addStates = function(states, initialState) {
@@ -59,8 +60,25 @@
 
             if (nextState !== undefined) {
                 this.setCurrentState(nextState);
+                this.triggerChangeEvents(event);
             }
         }
+    };
+
+    FSM.prototype.triggerChangeEvents = function(event) {
+        var currState = this._currentState;
+        var prevState = this._prevState;
+
+        var data = {
+            event: event,
+            from: prevState,
+            to: currState
+        };
+
+        this.emit('changeState:from.' + prevState, data);
+        this.emit('changeState:to.' + currState, data);
+        this.emit('changeState:from.' + prevState + '>to.' + currState, data);
+        this.emit('changeState', data);
     };
 
     /**
@@ -70,19 +88,7 @@
      * @param {string} state
      */
     FSM.prototype.setCurrentState = function(state) {
-        if (this._currentState !== undefined) {
-            var currState = this._currentState;
-            var data = {
-                from: currState,
-                to: state
-            };
-
-            this.emit('changeState:from.' + currState, data);
-            this.emit('changeState:to.' + state, data);
-            this.emit('changeState:from.' + currState + '>to.' + state, data);
-            this.emit('changeState', data);
-        }
-
+        this._prevState = (this._currentState === undefined) ? state : this._currentState.toString();
         this._currentState = state;
     };
 
@@ -91,6 +97,13 @@
      */
     FSM.prototype.getCurrentState = function() {
         return this._currentState;
+    };
+
+    /**
+     * Accessor.
+     */
+    FSM.prototype.getPreviousState = function() {
+        return this._prevState;
     };
 
     /**

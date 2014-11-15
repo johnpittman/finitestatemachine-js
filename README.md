@@ -11,7 +11,7 @@ Universal module defined to be used with <b>requirejs</b>, <b>node</b>, <b>commo
 - All files in the <b>src</b> directory are the source code for <b>development</b> use.
 - Packages point at the <b>dist</b> minified code with <b>source maps</b>.
 
-<h1>Use</h1>
+<h1>Usage</h1>
 
     var TestStates = {
         StateOne: {
@@ -57,3 +57,15 @@ gulp test
 
 - gulp test
 - gulp build
+
+<h1>Release Notes</h1>
+
+<h3>v1.0.1</h3>
+
+<h4>Breaking Changes...</h4>
+
+- setCurrentState no longer tiggers the change events. Use triggerChangeEvents to explicity trigger events for the current state.
+
+<h4>Additional Changes...</h4>
+
+- Added getPreviousState() to fetch the previous state.
