@@ -75,6 +75,11 @@ gulp test
 
 <h1>Release Notes</h1>
 
+<h3>v1.0.2</h3>
+
+<h4>Breaking Changes...</h4>
+- Removed ability for addStates' states parameter to be optional.
+
 <h3>v1.0.1</h3>
 
 <h4>Breaking Changes...</h4>
