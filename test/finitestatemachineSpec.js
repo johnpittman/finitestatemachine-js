@@ -43,6 +43,31 @@ describe("Finite State Machine", function() {
         });
     });
 
+    describe("#handleStateEvent", function() {
+        it("Updates the current state.", function() {
+            fsm.handleStateEvent('walk');
+            expect(fsm.getCurrentState()).toBe('Walking');
+        });
+        it("Triggers all change events.", function() {
+            fsm.onChangeState(inscreaseCount);
+            fsm.handleStateEvent('walk');
+            expect(count).toBe(1);
+        });
+    });
+
+    describe("#changeState", function() {
+        it("Updates the current state.", function() {
+            fsm.changeState('Walking');
+            expect(fsm.getCurrentState()).toBe('Walking');
+        });
+        it("Triggers all change events.", function() {
+            fsm.onChangeState(inscreaseCount);
+            fsm.changeState('Walking');
+            expect(count).toBe(1);
+        });
+    });
+
+
     describe("#onChangeState", function() {
         it("Adds a listener to be executed whenever the change state event is triggered.", function() {
             fsm.onChangeState(inscreaseCount);

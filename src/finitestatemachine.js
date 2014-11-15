@@ -65,6 +65,10 @@
         }
     };
 
+    /**
+     * Emits all change events.
+     * @param  {string} event
+     */
     FSM.prototype.triggerChangeEvents = function(event) {
         var currState = this._currentState;
         var prevState = this._prevState;
@@ -79,6 +83,16 @@
         this.emit('changeState:to.' + currState, data);
         this.emit('changeState:from.' + prevState + '>to.' + currState, data);
         this.emit('changeState', data);
+    };
+
+
+    /**
+     * Updates the current state to the state that's passed in. Emits all change events.
+     * @param  {string} state
+     */
+    FSM.prototype.changeState = function(state) {
+        this.setCurrentState(state);
+        this.triggerChangeEvents();
     };
 
     /**
