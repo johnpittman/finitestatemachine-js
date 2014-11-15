@@ -13,6 +13,13 @@ Universal module defined to be used with <b>requirejs</b>, <b>node</b>, <b>commo
 
 <h1>Use</h1>
 
+<h4>Installation</h4>
+
+npm: npm install finitestatemachine<br />
+bower: bower install finitestatemachine
+
+<h4>How to use...</h4>
+
     var TestStates = {
         StateOne: {
             'EventOne': 'StateTwo'
