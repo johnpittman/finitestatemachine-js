@@ -46,7 +46,7 @@ describe("Finite State Machine", function() {
     describe("#onChangeState", function() {
         it("Adds a listener to be executed whenever the change state event is triggered.", function() {
             fsm.onChangeState(inscreaseCount);
-            fsm.changeState('walk');
+            fsm.handleStateEvent('walk');
             expect(count).toBe(1);
         });
     });
@@ -54,7 +54,7 @@ describe("Finite State Machine", function() {
     describe("#onChangeStateFromTo", function() {
         it("Adds a listener to be executed whenever the state changes from and to specific states event is triggered.", function() {
             fsm.onChangeStateFromTo('Still', 'Walking', inscreaseCount);
-            fsm.changeState('walk');
+            fsm.handleStateEvent('walk');
             expect(count).toBe(1);
         });
     });

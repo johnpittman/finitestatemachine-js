@@ -53,7 +53,7 @@
      * Looks up the event passed in from the state's event map and return the new state if the event exists.
      * @param  {string} event
      */
-    FSM.prototype.changeState = function(event) {
+    FSM.prototype.handleStateEvent = function(event) {
         if (this._currentState !== undefined) {
             var eventMap = this._states[this._currentState];
             var nextState = eventMap[event];

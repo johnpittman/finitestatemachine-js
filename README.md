@@ -72,6 +72,8 @@ gulp test
 <h4>Breaking Changes...</h4>
 
 - setCurrentState no longer tiggers the change events. Use triggerChangeEvents to explicity trigger events for the current state.
+- changeState has been deprecated to handleStateEvent.
+- changeState now takes a state as the parameter, changes the current state, and triggers the change events with the event.event data being undefined.
 
 <h4>Additional Changes...</h4>
 
