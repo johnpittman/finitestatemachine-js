@@ -77,7 +77,14 @@ gulp test
 
 <h3>v1.0.2</h3>
 
+<h4>Bug Fixes...</h4>
+
+- Fixed sourcemap linking for minified files. The is also fixed as part of the build process to automate proper sourcemap creation and linking.
+
+<h3>v1.0.2</h3>
+
 <h4>Breaking Changes...</h4>
+
 - Removed ability for addStates' states parameter to be optional.
 
 <h3>v1.0.1</h3>
