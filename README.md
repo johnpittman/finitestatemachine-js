@@ -79,7 +79,7 @@ gulp test
 
 <h4>Bug Fixes...</h4>
 
-- Fixed sourcemap linking for minified files. The is also fixed as part of the build process to automate proper sourcemap creation and linking.
+- Fixed sourcemap linking for minified files. This is also fixed as part of the build process to automate proper sourcemap creation and linking.
 
 <h3>v1.0.2</h3>
 
