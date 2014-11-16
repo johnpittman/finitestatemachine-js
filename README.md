@@ -75,7 +75,7 @@ gulp test
 
 <h1>Release Notes</h1>
 
-<h3>v1.0.2</h3>
+<h3>v1.0.4</h3>
 
 <h4>Bug Fixes...</h4>
 
