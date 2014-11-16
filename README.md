@@ -70,8 +70,11 @@ gulp test
 
 <h4>Gulp Commands</h4>
 
-- gulp test
-- gulp build
+Command dependency chain: test > build
+(Each process is dependent upon the previous. If one fails the build process exits.)
+
+- gulp test (Unit specifications)
+- gulp build (Folder clean-ups, minification, source maps, renaming)
 
 <h1>Release Notes</h1>
 
