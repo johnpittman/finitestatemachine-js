@@ -8,7 +8,7 @@ var clean = require('gulp-clean');
 var sourcemaps = require('gulp-sourcemaps');
 var prompt = require('gulp-prompt');
 var recursiveread = require('recursive-readdir');
-var prettify = require('gulp-prettify');
+var beautify = require('gulp-beautify');
 
 var fs = require('fs');
 var path = require('path');
@@ -83,13 +83,13 @@ gulp.task('bumpVersion', ['build'], function(cb) {
                     buff = JSON.stringify(buff);
                     fs.writeFileSync(fileName, buff);
                 }
+
+                // Reformat the new files back to easily readable.
+                gulp.src(PACKAGE_CONFIGS)
+                    .pipe(beautify())
+                    .pipe(gulp.dest('./'));
             }
         }));
-
-    // Reformat the new files back to easily readable.
-    //gulp.src(PACKAGE_CONFIGS)
-    //    .pipe(prettify());
-    //     .pipe(gulp.dest('./'));
 
     return cb();
 });

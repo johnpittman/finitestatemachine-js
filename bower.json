@@ -1,1 +1,15 @@
-{"name":"finitestatemachine","version":"1.0.4","description":"Lightweight universal module defined finite state machine.","homepage":"https://github.com/JohnPittman/finitestatemachine-js","authors":["John Pittman <johnrichadrpittman@gmail.com>"],"main":"dist/finitestatemachine.min.js","moduleType":["amd","globals","node"],"keywords":["fast","optimized","umd","universal","modular","js","module","javascript","finitestatemachine","fsm","states"],"license":"MIT","ignore":["gulpfile.js",".gitignore","package.json","node_modules","bower_components","test","tests"],"dependencies":{"eventhandler":"*"}}
+{
+    "name": "finitestatemachine",
+    "version": "1.0.4",
+    "description": "Lightweight universal module defined finite state machine.",
+    "homepage": "https://github.com/JohnPittman/finitestatemachine-js",
+    "authors": ["John Pittman <johnrichadrpittman@gmail.com>"],
+    "main": "dist/finitestatemachine.min.js",
+    "moduleType": ["amd", "globals", "node"],
+    "keywords": ["fast", "optimized", "umd", "universal", "modular", "js", "module", "javascript", "finitestatemachine", "fsm", "states"],
+    "license": "MIT",
+    "ignore": ["gulpfile.js", ".gitignore", "package.json", "node_modules", "bower_components", "test", "tests"],
+    "dependencies": {
+        "eventhandler": "*"
+    }
+}
