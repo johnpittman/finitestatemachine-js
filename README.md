@@ -70,11 +70,11 @@ gulp test
 
 <h4>Gulp Commands</h4>
 
-Command dependency chain: test > build
-(Each process is dependent upon the previous. If one fails the build process exits.)
+Each process is dependent upon the previous. If one fails the build process exits.
 
 - gulp test (Unit specifications)
-- gulp build (Folder clean-ups, minification, source maps, renaming)
+- gulp build (Test, folder clean-ups, minification, source maps, renaming)
+- gulp deploy (Test, build, versioning)
 
 <h1>Release Notes</h1>
 

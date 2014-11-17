@@ -1,7 +1,7 @@
 {
     "name": "finitestatemachine",
-    "version": "1.0.4",
-    "description": "Lightweight universal module defined finite state machine.",
+    "version": "1.0.5",
+    "description": "Lightweight universal module defined finite state machine implementation in JavaScript.",
     "main": "dist/finitestatemachine.min.js",
     "files": ["src/", "dist/", "LICENSE", "README"],
     "repository": {
