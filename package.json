@@ -8,7 +8,7 @@
         "type": "git",
         "url": "https://github.com/JohnPittman/finitestatemachine-js.git"
     },
-    "keywords": ["fast", "optimized", "umd", "universal", "modular", "js", "module", "javascript", "finitestatemachine", "fsm", "states"],
+    "keywords": ["fast", "optimized", "umd", "universal", "modular", "js", "module", "javascript", "finitestatemachine", "finite-state-machine", "fsm", "states"],
     "author": "John Pittman",
     "license": "MIT",
     "bugs": {
