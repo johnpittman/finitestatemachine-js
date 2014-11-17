@@ -16,7 +16,7 @@
 
     /**
      * @constructor
-     * @param {object} [owner]
+     * @param {object} [owner=this]
      */
     function FSM(owner) {
         EventHandler.call(this, owner || this);
@@ -54,15 +54,16 @@
     /**
      * Looks up the event passed in from the state's event map and return the new state if the event exists.
      * @param  {string} event
+     * @param  {*} [data] - Data to be access by all event listeners.
      */
-    FSM.prototype.handleStateEvent = function(event) {
+    FSM.prototype.handleStateEvent = function(event, data) {
         if (this._currentState !== undefined) {
             var eventMap = this._states[this._currentState];
             var nextState = eventMap[event];
 
             if (nextState !== undefined) {
                 this.setCurrentState(nextState);
-                this.triggerChangeEvents(event);
+                this.triggerChangeEvents(event, data);
             }
         }
     };
@@ -70,15 +71,17 @@
     /**
      * Emits all change events.
      * @param  {string} event
+     * @param  {*} [data] - Data to be access by all event listeners.
      */
-    FSM.prototype.triggerChangeEvents = function(event) {
+    FSM.prototype.triggerChangeEvents = function(event, data) {
         var currState = this._currentState;
         var prevState = this._prevState;
 
         var data = {
             event: event,
             from: prevState,
-            to: currState
+            to: currState,
+            data: data
         };
 
         this.emit('changeState:from.' + prevState, data);
@@ -91,10 +94,11 @@
     /**
      * Updates the current state to the state that's passed in. Emits all change events.
      * @param  {string} state
+     * @param  {*} [data] - Data to be access by all event listeners.
      */
-    FSM.prototype.changeState = function(state) {
+    FSM.prototype.changeState = function(state, data) {
         this.setCurrentState(state);
-        this.triggerChangeEvents();
+        this.triggerChangeEvents(undefined, data);
     };
 
     /**

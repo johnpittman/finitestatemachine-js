@@ -48,7 +48,7 @@ gulp.task('bumpVersion', ['build'], function(cb) {
             type: 'checkbox',
             name: 'bump',
             message: 'What type of bump would you like to do? (None)',
-            choices: ['patch', 'minor', 'major'],
+            choices: ['patch', 'minor', 'major', '1.0.0'],
         }, function(res) {
             //value is in res.bump (as an array)
             bumpType = res.bump[0];
@@ -63,13 +63,31 @@ gulp.task('bumpVersion', ['build'], function(cb) {
 
                     if (bumpType === 'patch') {
                         var versionTypeNum = parseInt(versionTypeValues[2]);
-                        versionTypeValues[2] = (versionTypeNum < 9) ? ++versionTypeNum : 0;
+                        ++versionTypeNum;
+                        versionTypeValues[2] = versionTypeNum;
+                        if (versionTypeNum > 9) {
+                            versionTypeValues[2] = 0;
+                            var minorVersion = ++versionTypeValues[1];
+                            if (minorVersion > 9) {
+                                versionTypeValues[1] = 0;
+                                ++versionTypeValues[0];
+                            }
+                        }
                     } else if (bumpType === 'minor') {
                         var versionTypeNum = parseInt(versionTypeValues[1]);
-                        versionTypeValues[1] = (versionTypeNum < 9) ? ++versionTypeNum : 0;
+                        ++versionTypeNum;
+                        versionTypeValues[1] = versionTypeNum;
+                        if (versionTypeNum > 9) {
+                            versionTypeValues[1] = 0;
+                            ++versionTypeValues[0];
+                        }
                     } else if (bumpType === 'major') {
                         var versionTypeNum = parseInt(versionTypeValues[0]);
                         versionTypeValues[0] = ++versionTypeNum;
+                    } else if (bumpType === '1.0.0') {
+                        versionTypeValues[0] = 1;
+                        versionTypeValues[1] = 0;
+                        versionTypeValues[2] = 0;
                     }
 
                     var versionStr = versionTypeValues.join('.');
@@ -100,6 +118,8 @@ gulp.task('bumpVersion', ['build'], function(cb) {
                     if (bumpType === 'alpha' || bumpType === 'beta') {
                         buff.version += '-' + bumpType;
                     }
+
+                    console.log(fileName + ' - version: ' + buff.version);
 
                     // Write the new version to .json.
                     buff = JSON.stringify(buff);
@@ -206,8 +226,6 @@ gulp.task('updateSourceMapPaths', ['cleanSourceMaps'], function(cb) {
                 // Read file.
                 var buff = fs.readFileSync(filePath, 'utf8').toString();
                 // Get file name
-                //var fileName = filePath.split('\\');
-                //fileName = fileName[fileName.length - 1];
                 var sourceMappingKey = '//# sourceMappingURL=';
                 var filePathIndex = buff.indexOf(sourceMappingKey);
                 if (filePathIndex !== -1) {

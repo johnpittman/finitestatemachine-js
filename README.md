@@ -78,6 +78,17 @@ Each process is dependent upon the previous. If one fails the build process exit
 
 <h1>Release Notes</h1>
 
+<h3>v1.1.4</h3>
+
+- Added ability to pass data to handleStateEvent(event, data), changeState(state, data), and triggerChangeEvents(event, data). This allows for the data to be distributed to all change event listeners. 
+
+    Ex. var listener = function(event){
+        console.log(event.event);
+        console.log(event.from);
+        console.log(event.to);
+        console.log(event.data); // Can be anything but typcially would be an object.
+    }
+
 <h3>v1.0.4</h3>
 
 <h4>Bug Fixes...</h4>
