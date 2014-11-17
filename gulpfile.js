@@ -47,8 +47,8 @@ gulp.task('bumpVersion', ['build'], function(cb) {
         .pipe(prompt.prompt({
             type: 'checkbox',
             name: 'bump',
-            message: 'What type of bump would you like to do?',
-            choices: ['alpha', 'beta', 'patch', 'minor', 'major'],
+            message: 'What type of bump would you like to do? (None)',
+            choices: ['patch', 'minor', 'major'],
         }, function(res) {
             //value is in res.bump (as an array)
             bumpType = res.bump[0];
@@ -74,12 +74,34 @@ gulp.task('bumpVersion', ['build'], function(cb) {
 
                     var versionStr = versionTypeValues.join('.');
 
+                    // Write the new version to .json.
+                    buff.version = versionStr;
+                    buff = JSON.stringify(buff);
+                    fs.writeFileSync(fileName, buff);
+                }
+            }
+        }))
+        .pipe(prompt.prompt({
+            type: 'checkbox',
+            name: 'bump',
+            message: 'Is this an Alpha or Beta release? (No)',
+            choices: ['alpha', 'beta'],
+        }, function(res) {
+            //value is in res.bump (as an array)
+            bumpType = res.bump[0];
+            // Bump version of package.json and bower.json only
+            var files = fs.readdirSync('./');
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i];
+                if (fileName === 'package.json' ||
+                    fileName === 'bower.json') {
+                    var buff = JSON.parse(fs.readFileSync(fileName));
+
                     if (bumpType === 'alpha' || bumpType === 'beta') {
-                        versionStr += '-' + bumpType;
+                        buff.version += '-' + bumpType;
                     }
 
                     // Write the new version to .json.
-                    buff.version = versionStr;
                     buff = JSON.stringify(buff);
                     fs.writeFileSync(fileName, buff);
                 }
