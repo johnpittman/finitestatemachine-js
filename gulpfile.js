@@ -81,9 +81,12 @@ gulp.task('bumpVersion', ['build'], function(cb) {
                             versionTypeValues[1] = 0;
                             ++versionTypeValues[0];
                         }
+                        versionTypeValues[2] = 0; // Reset patch version.
                     } else if (bumpType === 'major') {
                         var versionTypeNum = parseInt(versionTypeValues[0]);
                         versionTypeValues[0] = ++versionTypeNum;
+                        versionTypeValues[1] = 0; // Reset minor version.
+                        versionTypeValues[2] = 0; // Reset patch version.
                     } else if (bumpType === '1.0.0') {
                         versionTypeValues[0] = 1;
                         versionTypeValues[1] = 0;

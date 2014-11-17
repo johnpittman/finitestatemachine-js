@@ -1,6 +1,6 @@
 {
     "name": "finitestatemachine",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "description": "Lightweight universal module defined finite state machine implementation in JavaScript.",
     "main": "dist/finitestatemachine.min.js",
     "files": ["src/", "dist/", "LICENSE", "README"],
