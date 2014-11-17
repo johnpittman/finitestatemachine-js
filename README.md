@@ -1,5 +1,5 @@
-finitestatemachine-js
-=====================
+finitestatemachine
+==================
 
 A simple finite state machine built to use as a mechanism to feed other/larger components.
 
