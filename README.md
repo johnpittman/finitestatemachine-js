@@ -34,6 +34,16 @@ bower: bower install finitestatemachine
         console.log('Event:' + event.event);
         console.log('From:' + event.from);
         console.log('To:' + event.to);
+        console.log('User:' + JSON.stringify(event.data.name));
+    };
+
+    // Data to pass to event listeners.
+    var userData = {
+        name: {
+            first: 'I',
+            middle: 'Am',
+            last: 'Groot'
+        }
     };
 
     var fsm = new FSM(this);
@@ -47,12 +57,12 @@ bower: bower install finitestatemachine
     console.log('Initial state:' + fsm.getCurrentState());
 
     console.log('fsm.handleStateEvent("EventOne");');
-    fsm.handleStateEvent('EventOne');
+    fsm.handleStateEvent('EventOne', userData);
     console.log('Previous state:' + fsm.getPreviousState());
     console.log('Current state:' + fsm.getCurrentState());
 
     console.log('fsm.changeState("StateOne");');
-    fsm.changeState('StateOne');
+    fsm.changeState('StateOne', userData);
     console.log('Previous state:' + fsm.getPreviousState());
     console.log('Current state:' + fsm.getCurrentState());
 
