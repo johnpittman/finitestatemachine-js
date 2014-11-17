@@ -2,7 +2,7 @@
 
 var FSM = require('../src/finitestatemachine');
 
-describe("Finite State Machine", function() {
+describe("FiniteStateMachine", function() {
     var fsm = new FSM();
     var movementStates = {
         Still: {
