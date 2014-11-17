@@ -6,10 +6,12 @@ var jasmine = require('gulp-jasmine');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var sourcemaps = require('gulp-sourcemaps');
+var prompt = require('gulp-prompt');
+var recursiveread = require('recursive-readdir');
+var prettify = require('gulp-prettify');
 
 var fs = require('fs');
 var path = require('path');
-var recursiveread = require('recursive-readdir');
 
 /**
  * Setup
@@ -17,25 +19,94 @@ var recursiveread = require('recursive-readdir');
 
 // File paths.
 var JS_SRC = 'src/**/*.js';
-var JS_DIST = 'dist/**/*.js';
 var MAP_DIST = 'dist/**/*.map';
 var DIST = 'dist/';
+var SRC = 'src/';
 var SPECS = 'test/*Spec.js';
+var PACKAGE_CONFIGS = '*.json';
+
+// Cross task variables.
+var bumpType;
 
 /**
  * Tasks
  */
 
-// Group tasks by development process.
 gulp.task('default', []);
 gulp.task('test', ['unitSpecs']);
 gulp.task('build', ['updateSourceMapPaths']);
+gulp.task('deploy', ['bumpVersion']);
+
+/**
+ * Deploy
+ */
+
+// Run all units tests.
+gulp.task('bumpVersion', ['build'], function(cb) {
+    gulp.src('package.json')
+        .pipe(prompt.prompt({
+            type: 'checkbox',
+            name: 'bump',
+            message: 'What type of bump would you like to do?',
+            choices: ['alpha', 'beta', 'patch', 'minor', 'major'],
+        }, function(res) {
+            //value is in res.bump (as an array)
+            bumpType = res.bump[0];
+            // Bump version of package.json and bower.json only
+            var files = fs.readdirSync('./');
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i];
+                if (fileName === 'package.json' ||
+                    fileName === 'bower.json') {
+                    var buff = JSON.parse(fs.readFileSync(fileName));
+                    var versionTypeValues = buff.version.split('-')[0].split('.');
+
+                    if (bumpType === 'patch') {
+                        var versionTypeNum = parseInt(versionTypeValues[2]);
+                        versionTypeValues[2] = (versionTypeNum < 9) ? ++versionTypeNum : 0;
+                    } else if (bumpType === 'minor') {
+                        var versionTypeNum = parseInt(versionTypeValues[1]);
+                        versionTypeValues[1] = (versionTypeNum < 9) ? ++versionTypeNum : 0;
+                    } else if (bumpType === 'major') {
+                        var versionTypeNum = parseInt(versionTypeValues[0]);
+                        versionTypeValues[0] = ++versionTypeNum;
+                    }
+
+                    var versionStr = versionTypeValues.join('.');
+
+                    if (bumpType === 'alpha' || bumpType === 'beta') {
+                        versionStr += '-' + bumpType;
+                    }
+
+                    // Write the new version to .json.
+                    buff.version = versionStr;
+                    buff = JSON.stringify(buff);
+                    fs.writeFileSync(fileName, buff);
+                }
+            }
+        }));
+
+    // Reformat the new files back to easily readable.
+    //gulp.src(PACKAGE_CONFIGS)
+    //    .pipe(prettify());
+    //     .pipe(gulp.dest('./'));
+
+    return cb();
+});
+
+/**
+ * Test
+ */
 
 // Run all units tests.
 gulp.task('unitSpecs', function() {
     return gulp.src(SPECS)
         .pipe(jasmine());
 });
+
+/**
+ * Build
+ */
 
 // Clear the distribution directory in case files/folders were removed from last build.
 gulp.task('cleanDist', ['test'], function() {
@@ -79,13 +150,13 @@ gulp.task('cleanSourceMaps', ['renameSourceMaps'], function() {
         .pipe(gulp.dest(DIST));
 });
 
-// Fixes sourcemap linking.
+// Fixes sourcemap linking. 
 gulp.task('updateSourceMapPaths', ['cleanSourceMaps'], function(cb) {
     recursiveread('./dist/', ['node_modules', 'bower_components', '.git'], function(err, files) {
         for (var i = 0; i < files.length; i++) {
             var filePath = files[i];
             // Grab map file to alter.
-            if (filePath.indexOf('.map') !== -1) {
+            if (filePath.indexOf('.min.map') !== -1) {
                 // Read file.
                 var buff = JSON.parse(fs.readFileSync(filePath, 'utf8'));
                 // Clear invlaid sources.
@@ -109,7 +180,7 @@ gulp.task('updateSourceMapPaths', ['cleanSourceMaps'], function(cb) {
             }
 
             // Grab minified js file to change .map link path.
-            if (filePath.indexOf('.js') !== -1) {
+            if (filePath.indexOf('.min.js') !== -1) {
                 // Read file.
                 var buff = fs.readFileSync(filePath, 'utf8').toString();
                 // Get file name
