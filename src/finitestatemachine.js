@@ -23,6 +23,7 @@
 
         this._states = {};
         this._currentState;
+        this._initialState;
         this._prevState;
     }
 
@@ -47,8 +48,10 @@
             this._states[state] = states[state];
         }
 
-        if (initialState !== undefined)
+        if (initialState !== undefined){
+            this._initialState = initialState;
             this.setCurrentState(initialState);
+        }
     };
 
     /**
@@ -99,6 +102,13 @@
     FSM.prototype.changeState = function(state, data) {
         this.setCurrentState(state);
         this.triggerChangeEvents(undefined, data);
+    };
+
+    /**
+     * Sets the state machine back to the initial state.
+     */
+    FSM.prototype.reset = function() {
+        this.changeState(this._initialState);
     };
 
     /**
