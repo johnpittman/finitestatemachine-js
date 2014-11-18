@@ -66,6 +66,16 @@ bower: bower install finitestatemachine
     console.log('Previous state:' + fsm.getPreviousState());
     console.log('Current state:' + fsm.getCurrentState());
 
+    console.log('fsm.changeState("StateOne");');
+    fsm.changeState('StateTwo', userData);
+    console.log('Previous state:' + fsm.getPreviousState());
+    console.log('Current state:' + fsm.getCurrentState());
+
+    console.log('fsm.reset();');
+    fsm.reset();
+    console.log('Previous state:' + fsm.getPreviousState());
+    console.log('Current state:' + fsm.getCurrentState());
+
 <h1>Development</h1>
 
 <h4>Requirements</h4>
@@ -87,6 +97,10 @@ Each process is dependent upon the previous. If one fails the build process exit
 - gulp deploy (Test, build, versioning)
 
 <h1>Release Notes</h1>
+
+<h3>v1.2.0</h3>
+
+- Added ability to reset to the initial state.
 
 <h3>v1.1.5</h3>
 
