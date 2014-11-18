@@ -87,10 +87,10 @@
             data: data
         };
 
+        this.emit('changeState', data);
         this.emit('changeState:from.' + prevState, data);
         this.emit('changeState:to.' + currState, data);
         this.emit('changeState:from.' + prevState + '>to.' + currState, data);
-        this.emit('changeState', data);
     };
 
 
