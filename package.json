@@ -1,14 +1,14 @@
 {
     "name": "finitestatemachine",
-    "version": "1.2.0",
-    "description": "Lightweight universal module defined finite state machine implementation in JavaScript.",
-    "main": "dist/finitestatemachine.min.js",
+    "version": "2.0.0",
+    "description": "Fast and optimized finite state machine. Performance oriented JavaScript.",
+    "main": "src/FiniteStateMachine.js",
     "files": ["src/", "dist/", "LICENSE", "README"],
     "repository": {
         "type": "git",
         "url": "https://github.com/JohnPittman/finitestatemachine-js.git"
     },
-    "keywords": ["fast", "optimized", "umd", "universal", "modular", "js", "module", "javascript", "finite", "state", "machine", "finite-state-machine", "fsm", "states"],
+    "keywords": ["fast", "optimized", "umd", "universal", "modular", "js", "module", "javascript", "finite", "state", "machine", "finite-state-machine", "fsm", "states", "chickendinosaur"],
     "author": "John Pittman",
     "license": "MIT",
     "bugs": {
@@ -27,6 +27,6 @@
         "recursive-readdir": "^1.2.0"
     },
     "dependencies": {
-        "eventhandler": "*"
+        "statemanager": "*"
     }
 }

@@ -1,17 +1,16 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD
-        define(['./../../eventhandler/dist/eventhandler.min.js'], factory);
+        define(['./../../statemanager/dist/StateManager.min.js'], factory);
     } else if (typeof exports === 'object') {
         // Node, CommonJS-like
-        module.exports = factory(require('eventhandler'));
+        module.exports = factory(require('statemanager'));
     } else {
         // Browser globals (root is window)        
-        root.FiniteStateMachine = factory(root.EventHandler);
-        if (root.FSM === undefined)
-            root.FSM = root.FiniteStateMachine;
+        root.FiniteStateMachine = factory(root.StateManager);
+        root.FSM = root.FiniteStateMachine;
     }
-}(this, function(EventHandler) {
+}(this, function(StateManager) {
     'use strict'
 
     /**
@@ -19,39 +18,20 @@
      * @param {object} [owner=this]
      */
     function FSM(owner) {
-        EventHandler.call(this, owner || this);
-
-        this._states = {};
-        this._currentState;
-        this._initialState;
-        this._prevState;
+        StateManager.call(this, owner || this);
     }
 
-    FSM.prototype = Object.create(EventHandler.prototype);
+    FSM.prototype = Object.create(StateManager.prototype);
     FSM.constructor = FSM;
 
     /**
      * Initializes the states collection with more states.
      * Every state already has a 'Default' event
-     * @param {object} states - {
-     *                              StateOne: {
-     *                                          'EventOne' : 'StateTwo'
-     *                                        },
-     *                              StateTwo: {
-     *                                          'EventTwo' : 'StateOne'
-     *                                        }
-     *                          }
+     * @param {object} states
      * @param {string} [initialState]
      */
     FSM.prototype.addStates = function(states, initialState) {
-        for (var state in states) {
-            this._states[state] = states[state];
-        }
-
-        if (initialState !== undefined){
-            this._initialState = initialState;
-            this.setCurrentState(initialState);
-        }
+        StateManager.prototype.addStates.call(this, states, initialState);
     };
 
     /**
@@ -59,123 +39,24 @@
      * @param  {string} event
      * @param  {*} [data] - Data to be access by all event listeners.
      */
-    FSM.prototype.handleStateEvent = function(event, data) {
+    FSM.prototype.handleEvent = function(event, data) {
         if (this._currentState !== undefined) {
-            var eventMap = this._states[this._currentState];
-            var nextState = eventMap[event];
+            var state = this._states[this._currentState];
+            if (state !== undefined)
+                if (state.events !== undefined) {
+                    var nextState = state.events[event];
 
-            if (nextState !== undefined) {
-                this.setCurrentState(nextState);
-                this.triggerChangeEvents(event, data);
-            }
+                    if (nextState !== undefined) {
+                        var data = {
+                            event: event,
+                            data: data
+                        };
+
+                        this.emit(event, data);
+                        this.changeState(nextState, data);
+                    }
+                }
         }
-    };
-
-    /**
-     * Emits all change events.
-     * @param  {string} event
-     * @param  {*} [data] - Data to be access by all event listeners.
-     */
-    FSM.prototype.triggerChangeEvents = function(event, data) {
-        var currState = this._currentState;
-        var prevState = this._prevState;
-
-        var data = {
-            event: event,
-            from: prevState,
-            to: currState,
-            data: data
-        };
-
-        this.emit('changeState', data);
-        this.emit('changeState:from.' + prevState, data);
-        this.emit('changeState:to.' + currState, data);
-        this.emit('changeState:from.' + prevState + '>to.' + currState, data);
-    };
-
-
-    /**
-     * Updates the current state to the state that's passed in. Emits all change events.
-     * @param  {string} state
-     * @param  {*} [data] - Data to be access by all event listeners.
-     */
-    FSM.prototype.changeState = function(state, data) {
-        this.setCurrentState(state);
-        this.triggerChangeEvents(undefined, data);
-    };
-
-    /**
-     * Sets the state machine back to the initial state.
-     */
-    FSM.prototype.reset = function() {
-        this.changeState(this._initialState);
-    };
-
-    /**
-     * Modifier.
-     * Fires event(s) with data pertaining to the state.
-     * Sets the current state to the state passed in without triggering events if it's the initial state.
-     * @param {string} state
-     */
-    FSM.prototype.setCurrentState = function(state) {
-        if (this._currentState !== undefined)
-            this._prevState = this._currentState.toString();
-        this._currentState = state;
-    };
-
-    /**
-     * Accessor.
-     */
-    FSM.prototype.getCurrentState = function() {
-        return this._currentState;
-    };
-
-    /**
-     * Accessor.
-     */
-    FSM.prototype.getPreviousState = function() {
-        return this._prevState;
-    };
-
-    /**
-     * Adds a listener to be triggered when the state changes.
-     * @param  {function} callback - Is passed an optional paramater for event data.
-     */
-    FSM.prototype.onChangeState = function(callback) {
-        this.on('changeState', callback);
-    };
-
-    /**
-     * Adds a listener to be triggered when the state changes from a specific state.
-     * @param  {string} from
-     * @param  {function} callback - Is passed an optional paramater for event data.
-     */
-    FSM.prototype.onChangeStateFrom = function(from, callback) {
-        this.on('changeState:from.' + from, callback);
-    };
-
-    /**
-     * Adds a listener to be triggered when the state changes
-     * @param  {string} to
-     * @param  {function} callback - Is passed an optional paramater for event data.
-     */
-    FSM.prototype.onChangeStateTo = function(to, callback) {
-        this.on('changeState:to.' + to, callback);
-    };
-
-    /**
-     * Adds a listener to be triggered when the state changes
-     * @param  {string|null} from
-     * @param  {string|null} to
-     * @param  {function} callback - Is passed an optional paramater for event data.
-     */
-    FSM.prototype.onChangeStateFromTo = function(from, to, callback) {
-        var fromToStr = (from === null) ? '' : 'from.' + from;
-        if ((from !== null) && (to !== null))
-            fromToStr += '>';
-        fromToStr += (to === null) ? '' : 'to.' + to;
-
-        this.on('changeState:' + fromToStr, callback);
     };
 
     return FSM;
