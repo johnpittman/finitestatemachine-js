@@ -1,6 +1,6 @@
 {
     "name": "finitestatemachine",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Fast and optimized finite state machine. Performance oriented JavaScript.",
     "main": "src/FiniteStateMachine.js",
     "files": ["src/", "dist/", "LICENSE", "README"],
