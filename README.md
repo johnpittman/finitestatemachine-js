@@ -141,7 +141,7 @@ bower: bower install finitestatemachine
 <h4>Breaking Changes...</h4>
 
 - Complete rework.
-- Built on top of my StateManager (npm/bower install statemanager). A machine is meant to have managers so this makes more sense and extract reusable functionality.
+- Built on top of my StateManager (npm/bower install statemanager). A machine is meant to have managers so this makes more sense and extracts reusable functionality.
 - handleStateEvent() is now handleEvent().
 
 <h4>Additional Changes...</h4>
