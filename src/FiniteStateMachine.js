@@ -25,23 +25,13 @@
     FSM.constructor = FSM;
 
     /**
-     * Initializes the states collection with more states.
-     * Every state already has a 'Default' event
-     * @param {object} states
-     * @param {string} [initialState]
-     */
-    FSM.prototype.addStates = function(states, initialState) {
-        StateManager.prototype.addStates.call(this, states, initialState);
-    };
-
-    /**
      * Looks up the event passed in from the state's event map and return the new state if the event exists.
      * @param  {string} event
      * @param  {*} [data] - Data to be access by all event listeners.
      */
     FSM.prototype.handleEvent = function(event, data) {
-        if (this._currentState !== undefined) {
-            var state = this._states[this._currentState];
+        if (this._currentStateId !== undefined) {
+            var state = this._states[this._currentStateId];
             if (state !== undefined)
                 if (state.events !== undefined) {
                     var nextState = state.events[event];

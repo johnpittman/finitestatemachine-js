@@ -43,18 +43,24 @@ bower: bower install finitestatemachine
 
     var movementStates = {
         'Still': {
+            initialize: function() {
+                console.log('Calling the \'Still\' initialize the  process...');
+            },
             enter: function() {
-                console.log('Standing still.');
+                console.log('Standing Still.');
             },
             leave: function() {
-                console.log('On to something else.');
+                console.log('Leaving \'Still\'.');
+            },
+            unload: function() {
+                console.log('Calling the \'Still\' unload the  process...');
             },
             transitions: {
-                onBeforeEnter: function() {
-                    console.log('Time to be chill.');
+                beforeEnter: function() {
+                    console.log('Transitioning to \'Still\'.');
                 },
-                onBeforeLeave: function() {
-                    console.log('Being still sucks.');
+                beforeLeave: function() {
+                    console.log('Transitioning from \'Still\'.');
                 }
             },
             events: {
@@ -63,18 +69,21 @@ bower: bower install finitestatemachine
             }
         },
         'Walking': {
+            initialize: function() {
+                console.log('Calling the \'Walking\' initialize the  process...');
+            },
             enter: function() {
                 console.log('Walking.');
             },
             leave: function() {
-                console.log('On to something else.');
+                console.log('Leaving \'Walking\'.');
             },
             transitions: {
-                onBeforeEnter: function() {
-                    console.log('Time to walk.');
+                beforeEnter: function() {
+                    console.log('Transitioning to \'Walking\'.');
                 },
-                onBeforeLeave: function() {
-                    console.log('Screw walking.');
+                beforeLeave: function() {
+                    console.log('Transitioning from \'Walking\'.');
                 }
             },
             events: {
@@ -85,18 +94,21 @@ bower: bower install finitestatemachine
             }
         },
         'Running': {
+            initialize: function() {
+                console.log('Calling the \'Running\' initialize the  process...');
+            },
             enter: function() {
                 console.log('Running.');
             },
             leave: function() {
-                console.log('On to something else.');
+                console.log('Leaving \'Running\'.');
             },
             transitions: {
-                onEnterFromWalking: function() {
-                    console.log('Time to run.');
+                enterFromWalking: function() {
+                    console.log('Enter \'Running\' from \'Walking\'.');
                 },
-                onLeaveToStill: function() {
-                    console.log('Running is tiresome.');
+                leaveToStill: function() {
+                    console.log('Leave \'Running\' to \'Still\'.');
                 }
             },
             events: {
@@ -113,28 +125,28 @@ bower: bower install finitestatemachine
 
     var movementStateManager = new FiniteStateMachine(this);
 
-    movementStateManager.on('enterstate', listener1);
-    movementStateManager.on('leavestate', listener1);
-
     console.log('Adding states.');
-    movementStateManager.addStates(movementStates, 'Still');
+    movementStateManager.initialize(movementStates, 'Still');
 
-    console.log('Previous state: ' + movementStateManager.getPreviousState());
     console.log('Initial state: ' + movementStateManager.getCurrentState());
 
-    console.log('Event: sprint');
-    movementStateManager.handleEvent('sprint');
-    console.log('Current state: ' + movementStateManager.getCurrentState());
-
-    console.log('Event: relax');
-    movementStateManager.handleEvent('relax');
-    console.log('Current state: ' + movementStateManager.getCurrentState());
-
-    console.log('Event: move');
+    console.log('Handle event: move');
     movementStateManager.handleEvent('move');
-    console.log('Current state: ' + movementStateManager.getCurrentState());
+
+    console.log('Handle event: move');
+    movementStateManager.handleEvent('relax');
+
+    console.log('Handle event: move');
+    movementStateManager.handleEvent('sprint');
+
+    console.log('Handle event: move');
+    movementStateManager.handleEvent('relax');
 
 <h1>Release Notes</h1>
+
+<h3>v2.1.0</h3>
+
+- See statemanager package release notes.
 
 <h3>v2.0.0</h3>
 
