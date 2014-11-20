@@ -48,7 +48,7 @@ bower: bower install finitestatemachine
         unload: function() {},                  // Optional
         events: {                               // Optional
             'event': 'State',
-        }
+        },
         transitions: {
             beforeEnter: function() {},         // Optional
             beforeEnterFromStill: function() {},// Optional
