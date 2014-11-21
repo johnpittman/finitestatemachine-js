@@ -42,43 +42,29 @@ bower: bower install finitestatemachine
 <h4>How to use...</h4>
 
     var stateExample = {
-        initialize: function() {},              // Optional
         enter: function() {},
         leave: function() {},
-        unload: function() {},                  // Optional
         events: {                               // Optional
             'event': 'State',
         },
         transitions: {
             beforeEnter: function() {},         // Optional
             beforeEnterFromStill: function() {},// Optional
-            enterFromStill: function() {},      // Optional
-            beforeLeave: function() {},         // Optional
             leaveToWalking: function() {},      // Optional
-            beforeLeaveToWalking: function() {} // Optional
         }
     };
 
     var movementStates = {
         'Still': {
-            initialize: function() {
-                console.log('Calling the \'Still\' initialize the  process...');
-            },
             enter: function() {
                 console.log('Standing Still.');
             },
             leave: function() {
                 console.log('Leaving \'Still\'.');
             },
-            unload: function() {
-                console.log('Calling the \'Still\' unload the  process...');
-            },
             transitions: {
                 beforeEnter: function() {
                     console.log('Transitioning to \'Still\'.');
-                },
-                beforeLeave: function() {
-                    console.log('Transitioning from \'Still\'.');
                 }
             },
             events: {
@@ -87,9 +73,6 @@ bower: bower install finitestatemachine
             }
         },
         'Walking': {
-            initialize: function() {
-                console.log('Calling the \'Walking\' initialize the  process...');
-            },
             enter: function() {
                 console.log('Walking.');
             },
@@ -99,9 +82,6 @@ bower: bower install finitestatemachine
             transitions: {
                 beforeEnter: function() {
                     console.log('Transitioning to \'Walking\'.');
-                },
-                beforeLeave: function() {
-                    console.log('Transitioning from \'Walking\'.');
                 }
             },
             events: {
@@ -112,9 +92,6 @@ bower: bower install finitestatemachine
             }
         },
         'Running': {
-            initialize: function() {
-                console.log('Calling the \'Running\' initialize the  process...');
-            },
             enter: function() {
                 console.log('Running.');
             },
@@ -122,7 +99,7 @@ bower: bower install finitestatemachine
                 console.log('Leaving \'Running\'.');
             },
             transitions: {
-                enterFromWalking: function() {
+                beforeEnterFromWalking: function() {
                     console.log('Enter \'Running\' from \'Walking\'.');
                 },
                 leaveToStill: function() {
@@ -146,7 +123,7 @@ bower: bower install finitestatemachine
     console.log('Adding states.');
     movementStateManager.initialize(movementStates, 'Still');
 
-    console.log('Initial state: ' + movementStateManager.getCurrentState());
+    console.log('Initial state: ' + movementStateManager.getCurrentStateId());
 
     console.log('Handle event: move');
     movementStateManager.handleEvent('move');
@@ -161,6 +138,10 @@ bower: bower install finitestatemachine
     movementStateManager.handleEvent('relax');
 
 <h1>Release Notes</h1>
+
+<h3>v2.1.5</h3>
+
+- See statemanager package release notes.
 
 <h3>v2.1.0</h3>
 
